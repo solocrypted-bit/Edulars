@@ -1,0 +1,152 @@
+<div id="authExperience" class="fixed inset-0 z-50 overflow-y-auto bg-slate-950 text-white">
+    <section id="welcomeScreen" class="auth-screen relative flex min-h-full items-center overflow-hidden px-5 py-10 sm:px-10 lg:px-16" aria-labelledby="welcomeTitle">
+        <div class="auth-glow auth-glow-one" aria-hidden="true"></div>
+        <div class="auth-glow auth-glow-two" aria-hidden="true"></div>
+        <div class="auth-shooting-star star-one" aria-hidden="true"></div>
+        <div class="auth-shooting-star star-two" aria-hidden="true"></div>
+        <div class="mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+            <div class="relative z-10 max-w-2xl">
+                <div class="mb-8 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.06] px-4 py-2 text-sm text-emerald-100 shadow-lg backdrop-blur">
+                    <span class="h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_14px_#6ee7b7]"></span>
+                    A smarter way to run your school
+                </div>
+                <h1 id="welcomeTitle" class="auth-title text-5xl font-extrabold leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl">
+                    Welcome to <span class="bg-gradient-to-r from-emerald-200 via-teal-100 to-violet-200 bg-clip-text text-transparent">EDULARS</span>
+                    <span class="mt-3 block text-3xl font-semibold text-white/85 sm:text-4xl">School Management System</span>
+                </h1>
+                <p class="auth-tagline mt-6 max-w-xl text-lg leading-8 text-slate-300 sm:text-xl">Education made smarter.</p>
+                <div class="auth-actions mt-10 flex flex-col gap-3 sm:flex-row">
+                    <button type="button" onclick="showLoginScreen()" class="inline-flex items-center justify-center gap-3 rounded-xl bg-emerald-400 px-7 py-4 font-bold text-slate-950 shadow-[0_12px_38px_-12px_rgba(52,211,153,.8)] transition hover:-translate-y-0.5 hover:bg-emerald-300 focus:outline-none focus:ring-4 focus:ring-emerald-200/50">
+                        <i class="fas fa-arrow-right-to-bracket" aria-hidden="true"></i> Sign in
+                    </button>
+                    <button id="createAccountButton" type="button" onclick="showSignupScreen()" class="hidden inline-flex items-center justify-center gap-3 rounded-xl border border-white/20 bg-white/[0.07] px-7 py-4 font-semibold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/[0.13] focus:outline-none focus:ring-4 focus:ring-white/20">
+                        <i class="fas fa-user-plus" aria-hidden="true"></i> Create admin account
+                    </button>
+                </div>
+                <p id="registrationClosedNote" class="mt-5 hidden text-sm text-slate-400">Administrator registration is closed. Sign in with your school account.</p>
+                <p class="mt-10 text-xs font-medium uppercase tracking-[0.24em] text-slate-500">One connected place for your school community</p>
+            </div>
+
+            <div class="auth-art relative mx-auto hidden h-[510px] w-full max-w-[570px] lg:block" aria-hidden="true">
+                <div class="auth-orbit orbit-one"></div>
+                <div class="auth-orbit orbit-two"></div>
+                <div class="auth-chalkboard">
+                    <div class="chalkboard-top"><span></span><span></span><span></span></div>
+                    <div class="chalkboard-content">
+                        <div class="chalk-label">TODAY'S LESSON</div>
+                        <div class="chalk-rule"></div>
+                        <div class="chalk-line long"></div>
+                        <div class="chalk-line medium"></div>
+                        <div class="chalk-equation">A + curiosity = <b>possibility</b></div>
+                        <div class="chalk-doodle"><i class="fas fa-atom"></i><span>learn • grow • thrive</span></div>
+                    </div>
+                    <div class="chalk-tray"><span class="chalk-piece"></span><span class="chalk-piece chalk-pink"></span><span class="chalk-eraser"></span></div>
+                </div>
+                <div class="auth-object object-book"><i class="fas fa-book-open"></i><span>Learn</span></div>
+                <div class="auth-object object-pencil"><i class="fas fa-pencil"></i></div>
+                <div class="auth-object object-pen"><i class="fas fa-pen-nib"></i></div>
+                <div class="auth-object object-flask"><i class="fas fa-flask"></i></div>
+                <div class="auth-object object-star"><i class="fas fa-star"></i></div>
+                <div class="auth-object object-paper"><i class="fas fa-paper-plane"></i></div>
+                <div class="auth-spark spark-one"></div>
+                <div class="auth-spark spark-two"></div>
+                <div class="auth-spark spark-three"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="loginScreen" class="auth-screen hidden relative flex min-h-full items-center justify-center overflow-hidden bg-gradient-to-br from-primary-900 via-primary-700 to-secondary-600 px-4 py-10">
+        <div class="auth-shooting-star star-one" aria-hidden="true"></div>
+        <div class="w-full max-w-md rounded-3xl border border-white/20 bg-white/[0.11] p-7 shadow-2xl backdrop-blur-2xl sm:p-9">
+            <button type="button" onclick="showWelcomeScreen()" class="mb-7 inline-flex items-center gap-2 text-sm text-white/70 transition hover:text-white">
+                <i class="fas fa-arrow-left" aria-hidden="true"></i> Welcome
+            </button>
+            <div class="mb-8 text-center">
+                <div class="mx-auto mb-4 flex h-20 w-20 items-center justify-center overflow-hidden rounded-2xl border border-white/25 bg-white/95 p-2 shadow-xl">
+                    <img id="schoolLogo" class="hidden h-full w-full object-contain" alt="School logo">
+                    <span id="schoolLogoPlaceholder" class="text-xs font-semibold uppercase tracking-wide text-primary-700">School logo</span>
+                </div>
+                <h2 id="loginSchoolName" class="text-2xl font-bold text-white">Your school</h2>
+                <p class="mt-1 text-sm text-white/70">Sign in to your school workspace</p>
+            </div>
+            <div id="authNotice" class="mb-5 hidden rounded-xl border px-4 py-3 text-sm" role="status"></div>
+            <form id="loginForm" class="space-y-4">
+                <div>
+                    <label for="loginEmail" class="mb-1.5 block text-sm font-medium text-white/85">Email</label>
+                    <input type="email" id="loginEmail" autocomplete="username" required class="w-full rounded-xl border border-white/25 bg-white/15 px-4 py-3 text-white outline-none placeholder:text-white/40 focus:border-white/60 focus:ring-2 focus:ring-white/20">
+                </div>
+                <div>
+                    <label for="loginPassword" class="mb-1.5 block text-sm font-medium text-white/85">Password</label>
+                    <div class="flex overflow-hidden rounded-xl border border-white/25 bg-white/15 focus-within:ring-2 focus-within:ring-white/20">
+                        <input type="password" id="loginPassword" autocomplete="current-password" required class="min-w-0 flex-1 bg-transparent px-4 py-3 text-white outline-none placeholder:text-white/40">
+                        <button id="loginPasswordToggle" type="button" onclick="toggleLoginPassword()" class="px-4 text-white/75 transition hover:text-white" aria-label="Show password" aria-pressed="false"><i id="loginPasswordToggleIcon" class="fas fa-eye" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+                <button id="loginSubmit" type="submit" class="flex w-full items-center justify-center gap-2 rounded-xl bg-white py-3.5 font-bold text-primary-700 shadow-lg transition hover:bg-white/90 disabled:cursor-wait disabled:opacity-70">
+                    <i class="fas fa-sign-in-alt" aria-hidden="true"></i> Sign in
+                </button>
+                <p id="loginError" class="hidden rounded-lg bg-red-100 px-3 py-2 text-sm text-red-800" role="alert"></p>
+            </form>
+            <p class="mt-6 text-center text-xs text-white/60">Use the account provided by your school administrator.</p>
+        </div>
+    </section>
+
+    <section id="signupScreen" class="auth-screen hidden relative flex min-h-full items-center justify-center overflow-hidden bg-gradient-to-br from-primary-900 via-primary-700 to-secondary-600 px-4 py-10">
+        <div class="auth-shooting-star star-two" aria-hidden="true"></div>
+        <div class="w-full max-w-xl rounded-3xl border border-white/20 bg-white/[0.11] p-7 shadow-2xl backdrop-blur-2xl sm:p-9">
+            <button type="button" onclick="showWelcomeScreen()" class="mb-6 inline-flex items-center gap-2 text-sm text-white/70 transition hover:text-white">
+                <i class="fas fa-arrow-left" aria-hidden="true"></i> Welcome
+            </button>
+            <div class="mb-7">
+                <p class="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-200">First-time setup</p>
+                <h2 class="mt-2 text-3xl font-bold text-white">Register your school</h2>
+                <p class="mt-2 text-sm leading-6 text-white/70">Create the first administrator account. We’ll verify your email before activating it.</p>
+            </div>
+            <form id="signupForm" class="space-y-4">
+                <div class="grid gap-4 sm:grid-cols-2">
+                    <div>
+                        <label for="signupName" class="mb-1.5 block text-sm font-medium text-white/85">Administrator name</label>
+                        <input id="signupName" name="name" autocomplete="name" maxlength="120" required class="w-full rounded-xl border border-white/25 bg-white/15 px-4 py-3 text-white outline-none placeholder:text-white/40 focus:border-white/60 focus:ring-2 focus:ring-white/20">
+                    </div>
+                    <div>
+                        <label for="signupSchool" class="mb-1.5 block text-sm font-medium text-white/85">School name</label>
+                        <input id="signupSchool" name="schoolName" maxlength="120" required class="w-full rounded-xl border border-white/25 bg-white/15 px-4 py-3 text-white outline-none placeholder:text-white/40 focus:border-white/60 focus:ring-2 focus:ring-white/20">
+                    </div>
+                </div>
+                <div>
+                    <label for="signupEmail" class="mb-1.5 block text-sm font-medium text-white/85">Administrator email</label>
+                    <input type="email" id="signupEmail" name="email" autocomplete="email" maxlength="254" required class="w-full rounded-xl border border-white/25 bg-white/15 px-4 py-3 text-white outline-none placeholder:text-white/40 focus:border-white/60 focus:ring-2 focus:ring-white/20">
+                </div>
+                <div class="grid gap-4 sm:grid-cols-2">
+                    <div>
+                        <label for="signupPassword" class="mb-1.5 block text-sm font-medium text-white/85">Password</label>
+                        <input type="password" id="signupPassword" name="password" autocomplete="new-password" minlength="12" maxlength="72" required class="w-full rounded-xl border border-white/25 bg-white/15 px-4 py-3 text-white outline-none placeholder:text-white/40 focus:border-white/60 focus:ring-2 focus:ring-white/20">
+                    </div>
+                    <div>
+                        <label for="signupPasswordConfirm" class="mb-1.5 block text-sm font-medium text-white/85">Confirm password</label>
+                        <input type="password" id="signupPasswordConfirm" autocomplete="new-password" minlength="12" maxlength="72" required class="w-full rounded-xl border border-white/25 bg-white/15 px-4 py-3 text-white outline-none placeholder:text-white/40 focus:border-white/60 focus:ring-2 focus:ring-white/20">
+                    </div>
+                </div>
+                <div>
+                    <label for="signupLogo" class="mb-1.5 block text-sm font-medium text-white/85">School logo <span class="font-normal text-white/55">(optional, PNG/JPEG/WebP up to 1 MB)</span></label>
+                    <div class="flex items-center gap-4 rounded-xl border border-dashed border-white/30 bg-white/[0.06] p-3">
+                        <div class="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white p-1">
+                            <img id="signupLogoPreview" class="hidden h-full w-full object-contain" alt="Selected school logo preview">
+                            <i id="signupLogoPlaceholder" class="fas fa-image text-2xl text-slate-400" aria-hidden="true"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <input type="file" id="signupLogo" accept="image/png,image/jpeg,image/webp" class="block w-full text-sm text-white file:mr-3 file:rounded-lg file:border-0 file:bg-white file:px-3 file:py-2 file:font-semibold file:text-primary-700 hover:file:bg-emerald-50">
+                            <p id="signupLogoError" class="mt-1 hidden text-xs text-red-200" role="alert"></p>
+                        </div>
+                    </div>
+                </div>
+                <div id="signupSuccess" class="hidden rounded-xl border border-emerald-200/30 bg-emerald-300/10 px-4 py-3 text-sm leading-6 text-emerald-50" role="status"></div>
+                <p id="signupError" class="hidden rounded-lg bg-red-100 px-3 py-2 text-sm text-red-800" role="alert"></p>
+                <button id="signupSubmit" type="submit" class="flex w-full items-center justify-center gap-2 rounded-xl bg-white py-3.5 font-bold text-primary-700 shadow-lg transition hover:bg-white/90 disabled:cursor-wait disabled:opacity-70">
+                    <i class="fas fa-envelope" aria-hidden="true"></i> Create account and verify email
+                </button>
+            </form>
+            <p class="mt-5 text-center text-xs leading-5 text-white/60">This one-time setup is only available before an administrator account has been created.</p>
+        </div>
+    </section>
+</div>

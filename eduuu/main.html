@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDULARS - School Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    colors: {
+                        primary: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#22c55e', 600: '#16a34a', 700: '#15803d', 900: '#14532d' },
+                        secondary: { 50: '#f5f3ff', 500: '#8b5cf6', 600: '#7c3aed' },
+                        success: { 50: '#ecfdf5', 500: '#10b981', 600: '#059669' },
+                        warning: { 50: '#fffbeb', 500: '#f59e0b', 600: '#d97706' },
+                        danger: { 50: '#fef2f2', 500: '#ef4444', 600: '#dc2626' }
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        * { scrollbar-width: thin; scrollbar-color: #cbd5e1 transparent; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .glass { background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); }
+        .sidebar-item { transition: all 0.2s; }
+        .sidebar-item:hover, .sidebar-item.active { background: rgba(22, 163, 74, 0.1); color: #16a34a; border-right: 3px solid #16a34a; }
+        .card-hover { transition: all 0.3s; }
+        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 40px -10px rgba(0,0,0,0.1); }
+        .fade-in { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .slide-in { animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { transform: translateX(-20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .modal-overlay { background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
+        .table-row { transition: background 0.2s; }
+        .table-row:hover { background: #f8fafc; }
+        .lesson-plan-content table { width: 100%; border-collapse: collapse; margin: 0.75rem 0; }
+        .lesson-plan-content th, .lesson-plan-content td { min-width: 3rem; border: 1px solid #94a3b8; padding: 0.5rem; text-align: left; vertical-align: top; }
+        .lesson-plan-content th { background: #f1f5f9; font-weight: 600; }
+        .lesson-plan-content p { margin: 0.55rem 0; }
+        .lesson-plan-content ul, .lesson-plan-content ol { margin: 0.5rem 0; padding-left: 1.75rem; }
+        .lesson-plan-content ul { list-style: disc; }
+        .lesson-plan-content ol { list-style: decimal; }
+        .auth-screen { isolation: isolate; }
+        .auth-glow { position: absolute; z-index: -1; width: 28rem; height: 28rem; border-radius: 9999px; filter: blur(100px); opacity: .25; pointer-events: none; }
+        .auth-glow-one { top: -13rem; left: 18%; background: #10b981; animation: glowDrift 12s ease-in-out infinite alternate; }
+        .auth-glow-two { right: -14rem; bottom: -16rem; background: #8b5cf6; animation: glowDrift 15s ease-in-out infinite alternate-reverse; }
+        .auth-title { animation: authRise .8s cubic-bezier(.2,.8,.2,1) both; }
+        .auth-tagline { opacity: 0; animation: authRise .7s ease-out .8s forwards; }
+        .auth-actions { opacity: 0; animation: authRise .7s ease-out 1s forwards; }
+        .auth-art { perspective: 1000px; }
+        .auth-chalkboard { position: absolute; top: 76px; left: 50%; width: min(390px, 76%); height: 310px; transform: translateX(-50%) rotateY(-8deg) rotateX(2deg); border: 12px solid #7c5134; border-radius: 13px; background: linear-gradient(145deg,#193a35,#102b29 70%,#1d403a); box-shadow: 0 34px 70px -24px rgba(0,0,0,.8), inset 0 0 35px rgba(0,0,0,.3); animation: boardAppear 1s .25s both; }
+        .chalkboard-top { position: absolute; top: -12px; left: -12px; right: -12px; height: 15px; border-radius: 8px 8px 0 0; background: linear-gradient(90deg,#95633e,#bd8b5d,#7c5134); }
+        .chalkboard-top span { position: absolute; top: 5px; width: 4px; height: 4px; border-radius: 50%; background: #e8c99e; }
+        .chalkboard-top span:first-child { left: 10px; } .chalkboard-top span:nth-child(2) { right: 10px; }
+        .chalkboard-content { padding: 38px 28px 20px; color: #e6f4e9; }
+        .chalk-label { color: #b7d7c4; font-size: 10px; letter-spacing: .24em; font-weight: 700; }
+        .chalk-rule { width: 50px; height: 2px; margin: 12px 0 19px; background: #e8b979; }
+        .chalk-line { height: 5px; margin: 11px 0; border-radius: 99px; background: rgba(232,244,233,.65); transform: rotate(-1deg); }
+        .chalk-line.long { width: 73%; } .chalk-line.medium { width: 52%; opacity: .52; }
+        .chalk-equation { margin-top: 21px; color: #ffd58a; font-family: Georgia,serif; font-size: 20px; font-style: italic; transform: rotate(-2deg); }
+        .chalk-equation b { color: #c9f3dc; font-weight: 500; }
+        .chalk-doodle { display: flex; align-items: center; gap: 9px; margin-top: 18px; color: #a7d8c3; font-size: 11px; letter-spacing: .12em; }
+        .chalk-doodle i { font-size: 15px; }
+        .chalk-tray { position: absolute; right: 10%; bottom: -18px; left: 10%; display: flex; align-items: center; gap: 12px; height: 14px; padding: 0 12px; border-radius: 0 0 6px 6px; background: linear-gradient(180deg,#bd8a58,#805434); }
+        .chalk-piece { width: 24px; height: 5px; border-radius: 5px; background: #f1eee0; transform: rotate(-7deg); }
+        .chalk-pink { background: #e8a4b7; transform: rotate(5deg); }
+        .chalk-eraser { width: 23px; height: 9px; margin-left: auto; border-radius: 3px; background: #c5b7a3; box-shadow: inset 0 -3px #8f806d; }
+        .auth-object { position: absolute; display: flex; align-items: center; justify-content: center; color: #f8fafc; filter: drop-shadow(0 15px 20px rgba(0,0,0,.3)); }
+        .auth-object i { font-size: 28px; }
+        .object-book { top: 3px; right: 3%; display: flex; width: 76px; height: 83px; flex-direction: column; gap: 6px; border: 1px solid rgba(255,255,255,.2); border-radius: 9px 16px 16px 9px; background: linear-gradient(120deg,#8b5cf6 0 13%,#51399b 13% 100%); box-shadow: inset 5px 0 rgba(255,255,255,.15),0 12px 25px rgba(0,0,0,.3); animation: floatObject 5s ease-in-out infinite; }
+        .object-book i { font-size: 25px; } .object-book span { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; }
+        .object-pencil { top: 155px; left: 4%; width: 22px; height: 148px; border-radius: 9px; color: #70491e; background: linear-gradient(90deg,#f7c96c,#f4a93f 65%,#d88727); transform: rotate(28deg); animation: floatPencil 6s ease-in-out infinite; }
+        .object-pencil i { font-size: 13px; }
+        .object-pen { right: 0; bottom: 60px; width: 24px; height: 138px; border-radius: 10px; color: #d7efff; background: linear-gradient(90deg,#60a5fa,#2563eb 60%,#1e40af); transform: rotate(36deg); animation: floatPencil 7s ease-in-out infinite reverse; }
+        .object-pen i { font-size: 14px; }
+        .object-flask { right: 10%; bottom: 3px; width: 55px; height: 55px; border-radius: 18px; color: #99f6e4; background: rgba(20,184,166,.18); border: 1px solid rgba(153,246,228,.26); animation: floatObject 6s ease-in-out 1s infinite; }
+        .object-flask i { font-size: 25px; }
+        .object-star { top: 44%; right: 1%; color: #fcd34d; animation: twinkle 2.4s ease-in-out infinite; }
+        .object-star i { font-size: 18px; }
+        .object-paper { bottom: 15%; left: 0; color: #c4b5fd; transform: rotate(-17deg); animation: floatObject 5.5s ease-in-out .5s infinite; }
+        .object-paper i { font-size: 25px; }
+        .auth-orbit { position: absolute; top: 50%; left: 50%; width: 480px; height: 370px; border: 1px solid rgba(167,243,208,.12); border-radius: 50%; transform: translate(-50%,-50%) rotate(-22deg); }
+        .orbit-two { width: 520px; height: 300px; border-color: rgba(196,181,253,.12); transform: translate(-50%,-50%) rotate(34deg); }
+        .auth-spark { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: #d9f99d; box-shadow: 0 0 14px 4px rgba(190,242,100,.42); animation: twinkle 2s ease-in-out infinite; }
+        .spark-one { top: 12%; left: 30%; } .spark-two { right: 17%; bottom: 30%; animation-delay: .8s; } .spark-three { top: 28%; right: 20%; animation-delay: 1.3s; }
+        .auth-shooting-star { position: absolute; z-index: -1; width: 120px; height: 2px; opacity: 0; background: linear-gradient(90deg,rgba(255,255,255,0),rgba(226,232,240,.9)); transform: rotate(-32deg); animation: shootingStar 1.15s ease-out forwards; pointer-events: none; }
+        .star-one { top: 21%; right: 17%; animation-delay: 1.7s; } .star-two { top: 34%; right: 8%; animation-delay: 2.8s; }
+        .auth-shooting-star::after { position: absolute; top: -3px; right: -2px; width: 7px; height: 7px; border-radius: 50%; background: #fff; box-shadow: 0 0 13px 3px #c4b5fd; content: ""; }
+        @keyframes authRise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes boardAppear { from { opacity: 0; transform: translateX(-50%) rotateY(-13deg) translateY(18px); } to { opacity: 1; transform: translateX(-50%) rotateY(-8deg) rotateX(2deg); } }
+        @keyframes floatObject { 0%,100% { translate: 0 0; } 50% { translate: 0 -12px; } }
+        @keyframes floatPencil { 0%,100% { translate: 0 0; } 50% { translate: 5px -9px; } }
+        @keyframes twinkle { 0%,100% { opacity: .45; scale: .75; } 50% { opacity: 1; scale: 1.2; } }
+        @keyframes shootingStar { 0% { opacity: 0; translate: 0 -15px; } 12% { opacity: .95; } 75% { opacity: .75; } 100% { opacity: 0; translate: -230px 130px; } }
+        @keyframes glowDrift { to { translate: 38px 25px; scale: 1.12; } }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+        }
+    </style>
+    <script defer src="js/data.js"></script>
+    <script defer src="main.js"></script>
+    <script defer src="js/login.js"></script>
+    <script defer src="js/topbar.js"></script>
+    <script defer src="js/sidebar.js"></script>
+    <script defer src="js/navigation.js"></script>
+    <script defer src="js/pages/dashboard.js"></script>
+    <script defer src="js/pages/lesson-note.js"></script>
+    <script defer src="js/pages/attendance.js"></script>
+    <script defer src="js/pages/assignments.js"></script>
+    <script defer src="js/pages/student-assignments.js"></script>
+    <script defer src="js/pages/reports.js"></script>
+    <script defer src="js/pages/directory.js"></script>
+    <script defer src="js/pages/academics.js"></script>
+    <script defer src="js/pages/finance.js"></script>
+    <script defer src="js/pages/school-life.js"></script>
+    <script defer src="js/report-modal.js"></script>
+    <script defer src="js/toast.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+    <div id="loginComponent"></div>
+    <div id="mainApp" class="hidden">
+        <div id="topbarComponent"></div>
+        <div id="sidebarComponent"></div>
+        <div id="mainContentComponent"></div>
+        <div id="reportModalComponent"></div>
+        <div id="toastComponent"></div>
+    </div>
+</body>
+</html>
