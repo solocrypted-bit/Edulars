@@ -4,27 +4,29 @@
         <div class="auth-glow auth-glow-two" aria-hidden="true"></div>
         <div class="auth-shooting-star star-one" aria-hidden="true"></div>
         <div class="auth-shooting-star star-two" aria-hidden="true"></div>
+        <div class="auth-shooting-star star-three" aria-hidden="true"></div>
+        <div class="auth-shooting-star star-four" aria-hidden="true"></div>
+        <div class="auth-shooting-star star-five" aria-hidden="true"></div>
+        <div class="auth-shooting-star star-six" aria-hidden="true"></div>
         <div class="mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
             <div class="relative z-10 max-w-2xl">
-                <div class="mb-8 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.06] px-4 py-2 text-sm text-emerald-100 shadow-lg backdrop-blur">
-                    <span class="h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_14px_#6ee7b7]"></span>
-                    A smarter way to run your school
-                </div>
-                <h1 id="welcomeTitle" class="auth-title text-5xl font-extrabold leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl">
-                    Welcome to <span class="bg-gradient-to-r from-emerald-200 via-teal-100 to-violet-200 bg-clip-text text-transparent">EDULARS</span>
-                    <span class="mt-3 block text-3xl font-semibold text-white/85 sm:text-4xl">School Management System</span>
+                <h1 id="welcomeTitle" class="text-5xl font-extrabold leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl ">
+                    <span class="auth-welcome-line block ">Welcome to <span class="bg-gradient-to-r from-emerald-200 via-teal-100 to-violet-200 bg-clip-text text-transparent">EDULARS</span></span>
+                    <span class="auth-school-line mt-3 block text-2xl font-semibold text-white/85 sm:text-4xl">School Management System</span>
                 </h1>
                 <p class="auth-tagline mt-6 max-w-xl text-lg leading-8 text-slate-300 sm:text-xl">Education made smarter.</p>
                 <div class="auth-actions mt-10 flex flex-col gap-3 sm:flex-row">
-                    <button type="button" onclick="showLoginScreen()" class="inline-flex items-center justify-center gap-3 rounded-xl bg-emerald-400 px-7 py-4 font-bold text-slate-950 shadow-[0_12px_38px_-12px_rgba(52,211,153,.8)] transition hover:-translate-y-0.5 hover:bg-emerald-300 focus:outline-none focus:ring-4 focus:ring-emerald-200/50">
-                        <i class="fas fa-arrow-right-to-bracket" aria-hidden="true"></i> Sign in
-                    </button>
-                    <button id="createAccountButton" type="button" onclick="showSignupScreen()" class="hidden inline-flex items-center justify-center gap-3 rounded-xl border border-white/20 bg-white/[0.07] px-7 py-4 font-semibold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/[0.13] focus:outline-none focus:ring-4 focus:ring-white/20">
+                    <button id="createAccountButton" type="button" onclick="showSignupScreen()" class="auth-create-button hidden inline-flex items-center justify-center gap-3 rounded-xl border border-white/20 bg-white/[0.07] px-7 py-4 font-semibold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/[0.13] focus:outline-none focus:ring-4 focus:ring-white/20">
                         <i class="fas fa-user-plus" aria-hidden="true"></i> Create admin account
+                    </button>
+                    <button type="button" onclick="showLoginScreen()" class="auth-sign-button inline-flex items-center justify-center gap-3 rounded-xl bg-emerald-400 px-7 py-4 font-bold text-slate-950 shadow-[0_12px_38px_-12px_rgba(52,211,153,.8)] transition hover:-translate-y-0.5 hover:bg-emerald-300 focus:outline-none focus:ring-4 focus:ring-emerald-200/50">
+                        <i class="fas fa-arrow-right-to-bracket" aria-hidden="true"></i> Sign in
                     </button>
                 </div>
                 <p id="registrationClosedNote" class="mt-5 hidden text-sm text-slate-400">Administrator registration is closed. Sign in with your school account.</p>
-                <p class="mt-10 text-xs font-medium uppercase tracking-[0.24em] text-slate-500">One connected place for your school community</p>
+                <p class="auth-typewriter mt-10 text-xs font-medium uppercase tracking-[0.24em] text-slate-500" aria-label="One connected place for your school community">
+                    <span aria-hidden="true">One connected place for your school community</span>
+                </p>
             </div>
 
             <div class="auth-art relative mx-auto hidden h-[510px] w-full max-w-[570px] lg:block" aria-hidden="true">

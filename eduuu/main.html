@@ -52,9 +52,26 @@
         .auth-glow { position: absolute; z-index: -1; width: 28rem; height: 28rem; border-radius: 9999px; filter: blur(100px); opacity: .25; pointer-events: none; }
         .auth-glow-one { top: -13rem; left: 18%; background: #10b981; animation: glowDrift 12s ease-in-out infinite alternate; }
         .auth-glow-two { right: -14rem; bottom: -16rem; background: #8b5cf6; animation: glowDrift 15s ease-in-out infinite alternate-reverse; }
-        .auth-title { animation: authRise .8s cubic-bezier(.2,.8,.2,1) both; }
-        .auth-tagline { opacity: 0; animation: authRise .7s ease-out .8s forwards; }
-        .auth-actions { opacity: 0; animation: authRise .7s ease-out 1s forwards; }
+        .auth-welcome-line, .auth-school-line, .auth-tagline, .auth-create-button, .auth-sign-button {
+            transition: opacity .55s ease, transform .55s cubic-bezier(.22,1,.36,1), filter .55s ease;
+            will-change: transform, opacity;
+        }
+        .auth-welcome-line { opacity: 0; animation: authSlideLeft .95s cubic-bezier(.16,1,.3,1) both; }
+        .auth-school-line { opacity: 0; animation: authSlideUp .85s cubic-bezier(.16,1,.3,1) 1s both; }
+        .auth-tagline { opacity: 0; animation: authSlideUp .85s cubic-bezier(.16,1,.3,1) 1.8s both; }
+        .auth-actions { overflow: visible; }
+        .auth-create-button, .auth-sign-button { opacity: 0; transform-origin: center; }
+        .auth-create-button:not(.hidden) { animation: authSlideLeft .8s cubic-bezier(.16,1,.3,1) 2.7s both, authButtonPop 4s 5s ease-in-out infinite; }
+        .auth-sign-button { animation: authSlideLeft .8s cubic-bezier(.16,1,.3,1) 2.85s both, authButtonPop 4s 5.15s ease-in-out infinite; }
+        .auth-typewriter { width: 100%; max-width: 38rem; }
+        .auth-typewriter span {
+            display: block;
+            width: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid rgba(148,163,184,.75);
+            animation: authTypewriter 30s steps(45,end) infinite;
+        }
         .auth-art { perspective: 1000px; }
         .auth-chalkboard { position: absolute; top: 76px; left: 50%; width: min(390px, 76%); height: 310px; transform: translateX(-50%) rotateY(-8deg) rotateX(2deg); border: 12px solid #7c5134; border-radius: 13px; background: linear-gradient(145deg,#193a35,#102b29 70%,#1d403a); box-shadow: 0 34px 70px -24px rgba(0,0,0,.8), inset 0 0 35px rgba(0,0,0,.3); animation: boardAppear 1s .25s both; }
         .chalkboard-top { position: absolute; top: -12px; left: -12px; right: -12px; height: 15px; border-radius: 8px 8px 0 0; background: linear-gradient(90deg,#95633e,#bd8b5d,#7c5134); }
@@ -91,18 +108,50 @@
         .orbit-two { width: 520px; height: 300px; border-color: rgba(196,181,253,.12); transform: translate(-50%,-50%) rotate(34deg); }
         .auth-spark { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: #d9f99d; box-shadow: 0 0 14px 4px rgba(190,242,100,.42); animation: twinkle 2s ease-in-out infinite; }
         .spark-one { top: 12%; left: 30%; } .spark-two { right: 17%; bottom: 30%; animation-delay: .8s; } .spark-three { top: 28%; right: 20%; animation-delay: 1.3s; }
-        .auth-shooting-star { position: absolute; z-index: -1; width: 120px; height: 2px; opacity: 0; background: linear-gradient(90deg,rgba(255,255,255,0),rgba(226,232,240,.9)); transform: rotate(-32deg); animation: shootingStar 1.15s ease-out forwards; pointer-events: none; }
-        .star-one { top: 21%; right: 17%; animation-delay: 1.7s; } .star-two { top: 34%; right: 8%; animation-delay: 2.8s; }
+        .auth-shooting-star { position: absolute; z-index: 0; width: 110px; height: 2px; opacity: 0; background: linear-gradient(90deg,rgba(255,255,255,0),rgba(226,232,240,.95)); transform: rotate(-32deg); animation: shootingStar 4.8s linear infinite; pointer-events: none; }
+        .star-one { top: 12%; right: 8%; animation-delay: -0.4s; animation-duration: 5.2s; }
+        .star-two { top: 28%; right: 28%; animation-delay: -1.7s; animation-duration: 4.6s; }
+        .star-three { top: 43%; right: 5%; animation-delay: -3.1s; animation-duration: 5.8s; }
+        .star-four { top: 60%; right: 18%; animation-delay: -2.3s; animation-duration: 4.3s; }
+        .star-five { top: 76%; right: 4%; animation-delay: -4.1s; animation-duration: 5.5s; }
+        .star-six { top: 19%; right: 48%; animation-delay: -5.2s; animation-duration: 6.1s; }
         .auth-shooting-star::after { position: absolute; top: -3px; right: -2px; width: 7px; height: 7px; border-radius: 50%; background: #fff; box-shadow: 0 0 13px 3px #c4b5fd; content: ""; }
-        @keyframes authRise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes authSlideLeft {
+            0% { opacity: 0; transform: translateX(-70px) scale(.985); filter: blur(4px); }
+            70% { opacity: 1; filter: blur(0); }
+            100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); }
+        }
+        @keyframes authSlideUp {
+            0% { opacity: 0; transform: translateY(24px) scale(.985); filter: blur(3px); }
+            70% { opacity: 1; filter: blur(0); }
+            100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+        }
+        @keyframes authButtonPop {
+            0%, 100% { transform: translateX(0) scale(1); }
+            8% { transform: translateX(0) scale(1.08); }
+            16% { transform: translateX(0) scale(1); }
+        }
+        @keyframes authTypewriter {
+            0%, 2% { width: 0; border-right-color: rgba(148,163,184,.75); }
+            22% { width: 60ch; border-right-color: rgba(148,163,184,.75); }
+            78% { width: 60ch; border-right-color: rgba(148,163,184,.75); }
+            82%, 100% { width: 0; border-right-color: transparent; }
+        }
         @keyframes boardAppear { from { opacity: 0; transform: translateX(-50%) rotateY(-13deg) translateY(18px); } to { opacity: 1; transform: translateX(-50%) rotateY(-8deg) rotateX(2deg); } }
         @keyframes floatObject { 0%,100% { translate: 0 0; } 50% { translate: 0 -12px; } }
         @keyframes floatPencil { 0%,100% { translate: 0 0; } 50% { translate: 5px -9px; } }
         @keyframes twinkle { 0%,100% { opacity: .45; scale: .75; } 50% { opacity: 1; scale: 1.2; } }
-        @keyframes shootingStar { 0% { opacity: 0; translate: 0 -15px; } 12% { opacity: .95; } 75% { opacity: .75; } 100% { opacity: 0; translate: -230px 130px; } }
+        @keyframes shootingStar {
+            0% { opacity: 0; translate: 180px -110px; }
+            8% { opacity: .95; }
+            42% { opacity: .8; }
+            52%, 100% { opacity: 0; translate: -520px 320px; }
+        }
         @keyframes glowDrift { to { translate: 38px 25px; scale: 1.12; } }
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+            .auth-welcome-line, .auth-school-line, .auth-tagline, .auth-sign-button, .auth-create-button:not(.hidden) { opacity: 1 !important; transform: none !important; animation-delay: 0s !important; }
+            .auth-typewriter span { width: auto !important; border-right: 0 !important; }
         }
     </style>
     <script defer src="js/data.js"></script>
